@@ -4,5 +4,5 @@ variable "username" {
 }
 
 variable "region" {
-  default = "us-east-1"
+  default = "eu-west-2"
   }
