@@ -1,27 +1,55 @@
-resource "aws_iam_group_membership" "team" {
- name = "tf-testing-group-membership"
+resource "aws_iam_user" "user" {
+  name = "test-user"
+}
 
-variable "region" {
- default = "eu-west-2"
+resource "aws_iam_role" "role" {
+  name = "test-role"
 
-
-users = [
-    aws_iam_user.user_one.name,
-    aws_iam_user.user_two.name,
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
   ]
-
-group = aws_iam_group.group.name
+}
+EOF
 }
 
 resource "aws_iam_group" "group" {
   name = "test-group"
 }
 
-resource "aws_iam_user" "user_one" {
-  name = "test-user"
+resource "aws_iam_policy" "policy" {
+  name        = "test-policy"
+  description = "A test policy"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
 }
 
-resource "aws_iam_user" "user_two" {
-  name = "test-user-two"
-}
+resource "aws_iam_policy_attachment" "test-attach" {
+  name       = "test-attachment"
+  users      = [aws_iam_user.user.name]
+  roles      = [aws_iam_role.role.name]
+  groups     = [aws_iam_group.group.name]
+  policy_arn = aws_iam_policy.policy.arn
 }
