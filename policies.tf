@@ -62,29 +62,29 @@ resource "aws_iam_policy" "ec2_full" {
 }
 EOF
 }
-resource "aws_iam_policy" "s3_bukcet_policy" {
-  name = "s3_bucket_policy_for_IAM_user"
-
-  policy = <<EOT
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "s3:ListAllMyBuckets"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    },
-    {
-      "Action": [
-        "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::testbucket23031991"
-    }
-  ]
-
-}
-EOT
-}
+#resource "aws_iam_policy" "s3_bukcet_policy" {
+#  name = "s3_bucket_policy_for_IAM_user"
+#
+#  policy = <<EOT
+#{
+#  "Version": "2012-10-17",
+#  "Statement": [
+#    {
+#      "Action": [
+#        "s3:ListAllMyBuckets"
+#      ],
+#      "Effect": "Allow",
+#      "Resource": "*"
+#    },
+#    {
+#      "Action": [
+#        "s3:*"
+#      ],
+#      "Effect": "Allow",
+#      "Resource": "arn:aws:s3:::testbucket23031991"
+#    }
+#  ]
+#
+#}
+#EOT
+#}
