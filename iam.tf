@@ -24,7 +24,7 @@ resource "aws_iam_policy" "s3_bukcet_policy" {
         "s3:*"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::testbucket23031991"
+      "Resource": "arn:aws:s3:::sonibucket"
     }
   ]
 
