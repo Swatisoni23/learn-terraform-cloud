@@ -1,6 +1,6 @@
 #Creating users
 resource "aws_iam_user" "newusers" {
-  name = "test-user"
+  name = "swatisoni"
 }
 resource "aws_iam_user" "sit-user" {
   name = "sit-user"
@@ -10,9 +10,6 @@ resource "aws_iam_user" "dev-user" {
 }
 resource "aws_iam_group" "developers" {
   name = "developers"
-}
-resource "aws_iam_group" "sit" {
-  name = "sit"
 }
 resource "aws_iam_group" "sandbox" {
   name = "sandbox"
