@@ -2,3 +2,6 @@
 output "user_arn" {
   value = "${aws_iam_user.newusers.0.arn}"
 }
+output "group_arn" {
+  value = "${aws_iam_user.newusers.0.arn}"
+}
