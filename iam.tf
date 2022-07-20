@@ -1,18 +1,33 @@
 #Creating users
 resource "aws_iam_user" "newusers" {
-  count = length(var.username)
-  name  = element(var.username, count.index)
+  name = "test-user"
 }
+resource "aws_iam_group" "developers" {
+  name = "developers"
+}
+resource "aws_iam_policy" "s3_bukcet_policy" {
+  name = "s3_bucket_policy_for_IAM_user"
 
-resource "aws_iam_user_policy_attachment" "ec2-user-full" {
-  count = length(var.username)
-  user  = element(aws_iam_user.newusers.*.name, count.index)
-  #policy_arn = "${aws_iam_policy.ec2_readonly.arn}"
-  policy_arn = aws_iam_policy.ec2_full.arn
+  policy = <<EOT
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:ListAllMyBuckets"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Action": [
+        "s3:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::testbucket23031991"
+    }
+  ]
+
 }
-#resource "aws_iam_user_policy_attachment" "s3_bucket_policy_for_IAM_user" {
-  #count      = length(var.username)
- # user = aws_iam_user.newusers.1.name
-  #policy_arn = "${aws_iam_policy.ec2_readonly.arn}"
-  #policy_arn = aws_iam_policy.s3_bucket_policy.arn
-#}
+EOT
+}
