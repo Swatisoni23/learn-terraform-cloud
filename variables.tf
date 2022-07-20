@@ -1,12 +1,10 @@
 variable "username" {
-  type    =     list
-  default = ["swati", "soni"]
+  type    = list(any)
+  default = ["soni", "swati"]
 }
-
+variable "iamgroup" {
+  default = ["grouptest"]
+}
 variable "region" {
   default = "eu-west-2"
-}
-
-variable "groupname" {
-  default = ["usergrouptest"]
 }
