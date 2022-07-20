@@ -15,4 +15,4 @@ resource "aws_iam_user_policy_attachment" "ec2-user-full" {
  # user = aws_iam_user.newusers.1.name
   #policy_arn = "${aws_iam_policy.ec2_readonly.arn}"
   #policy_arn = aws_iam_policy.s3_bucket_policy.arn
-}
+#}
