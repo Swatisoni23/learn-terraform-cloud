@@ -2,8 +2,20 @@
 resource "aws_iam_user" "newusers" {
   name = "test-user"
 }
+resource "aws_iam_user" "sit-user" {
+  name = "sit-user"
+}
+resource "aws_iam_user" "dev-user" {
+  name = "dev-user"
+}
 resource "aws_iam_group" "developers" {
   name = "developers"
+}
+resource "aws_iam_group" "sit" {
+  name = "sit"
+}
+resource "aws_iam_group" "sandbox" {
+  name = "sandbox"
 }
 resource "aws_iam_policy" "s3_bukcet_policy" {
   name = "s3_bucket_policy_for_IAM_user"
@@ -24,7 +36,7 @@ resource "aws_iam_policy" "s3_bukcet_policy" {
         "s3:*"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::testbucket23031991"
+      "Resource": "arn:aws:s3:::sonibucket"
     }
   ]
 
