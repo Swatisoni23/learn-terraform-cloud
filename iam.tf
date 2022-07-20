@@ -40,3 +40,7 @@ resource "aws_iam_policy" "s3_bukcet_policy" {
 }
 EOT
 }
+resource "aws_iam_group_policy_attachment" "test-attach" {
+  group      = aws_iam_group.sandbox.name
+  policy_arn = aws_iam_policy.s3_bukcet_policy.arn
+}
