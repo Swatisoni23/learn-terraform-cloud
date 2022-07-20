@@ -63,7 +63,7 @@ resource "aws_iam_policy" "ec2_full" {
 EOF
 }
 resource "aws_iam_policy" "s3_bukcet_policy" {
-  name        = "s3_bucket_policy_for_iam_user"
+  name        = "s3_bucket_policy_for_IAM_user"
 
   policy = <<EOT
 {
