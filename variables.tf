@@ -1,6 +1,6 @@
 variable "username" {
-  type = list
-  default = ["soni" , "swati"]
+  type    = list(any)
+  default = ["soni", "swati"]
 }
 variable "iamgroup" {
   default = ["grouptest"]

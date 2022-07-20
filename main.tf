@@ -1,7 +1,7 @@
 provider "aws" {
-    region = var.region
+  region = var.region
 }
 
 module "s3" {
-    source = "./s3"
+  source = "s3"
 }
