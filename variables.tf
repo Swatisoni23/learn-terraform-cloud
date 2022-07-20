@@ -1,6 +1,6 @@
 variable "username" {
   type    =     list
-  default = ["abdul", "khalid"]
+  default = ["swati", "soni"]
 }
 
 variable "region" {
