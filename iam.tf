@@ -14,5 +14,5 @@ resource "aws_iam_user_policy_attachment" "s3_bucket_policy_for_IAM_user" {
   #count      = length(var.username)
   user = aws_iam_user.newusers.1.name
   #policy_arn = "${aws_iam_policy.ec2_readonly.arn}"
-  policy_arn = aws_iam_policy.s3_bucket_policy.arn
+  #policy_arn = aws_iam_policy.s3_bucket_policy.arn
 }
