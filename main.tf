@@ -1,51 +1,55 @@
-############
-# IAM users
-############
-module "iam_user1" {
-  source = "../../modules/iam-user"
-
-  name = "user1"
-
-  create_iam_user_login_profile = false
-  create_iam_access_key         = false
+resource "aws_iam_user" "user" {
+  name = "test-user"
 }
 
-module "iam_user2" {
-  source = "../../modules/iam-user"
+resource "aws_iam_role" "role" {
+  name = "test-role"
 
-  name = "user2"
-
-  create_iam_user_login_profile = false
-  create_iam_access_key         = false
-}
-
-#############################################################################################
-# IAM group where user1 and user2 are allowed to assume admin role in production AWS account
-#############################################################################################
-module "iam_group_complete" {
-  source = "../../modules/iam-group-with-assumable-roles-policy"
-
-  name = "production-admins"
-
-  assumable_roles = ["arn:aws:iam::111111111111:role/admin"]
-
-  group_users = [
-    module.iam_user1.iam_user_name,
-    module.iam_user2.iam_user_name,
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
   ]
 }
+EOF
+}
 
-####################################################
-# Extending policies of IAM group production-admins
-####################################################
-module "iam_group_complete_with_custom_policy" {
-  source = "../../modules/iam-group-with-policies"
+resource "aws_iam_group" "group" {
+  name = "test-group"
+}
 
-  name = module.iam_group_complete.group_name
+resource "aws_iam_policy" "policy" {
+  name        = "test-policy"
+  description = "A test policy"
 
-  create_group = false
-
-  custom_group_policy_arns = [
-    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
   ]
+}
+EOF
+}
+
+resource "aws_iam_policy_attachment" "test-attach" {
+  name       = "test-attachment"
+  users      = [aws_iam_user.user.name]
+  roles      = [aws_iam_role.role.name]
+  groups     = [aws_iam_group.group.name]
+  policy_arn = aws_iam_policy.policy.arn
 }
