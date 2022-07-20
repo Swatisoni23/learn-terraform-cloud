@@ -1,9 +1,9 @@
 resource "aws_iam_user" "user" {
-  name = "test-user"
+  name = "swati-user"
 }
 
 resource "aws_iam_role" "role" {
-  name = "test-role"
+  name = "swati-role"
 
   assume_role_policy = <<EOF
 {
@@ -23,12 +23,12 @@ EOF
 }
 
 resource "aws_iam_group" "group" {
-  name = "test-group"
+  name = "swati-group"
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = "test-policy"
-  description = "A test policy"
+  name        = "swati-policy"
+  description = "A swati policy"
 
   policy = <<EOF
 {
@@ -47,7 +47,7 @@ EOF
 }
 
 resource "aws_iam_policy_attachment" "test-attach" {
-  name       = "test-attachment"
+  name       = "swati-attachment"
   users      = [aws_iam_user.user.name]
   roles      = [aws_iam_role.role.name]
   groups     = [aws_iam_group.group.name]
